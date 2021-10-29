@@ -1,0 +1,31 @@
+clear;
+clc;
+%Detect objects using Viola-Jones Algorithm
+
+%To detect Face
+FDetect = vision.CascadeObjectDetector();
+
+%Read the input image
+cam = webcam();
+ I = snapshot(cam);
+
+
+%Returns Bounding Box values based on number of objects
+BB = step(FDetect,I);
+
+figure,
+imshow(I); hold on
+for i = 1:size(BB,1)
+    rectangle('Position',BB(i,:),'LineWidth',1,'LineStyle','-','EdgeColor','r');
+    filename = I;
+               
+              [y,Fs] = audioread('facedetected.wav');
+              sound(y,Fs);
+    
+end
+title('Face Detection');
+
+hold off;
+clear cam;
+
+
